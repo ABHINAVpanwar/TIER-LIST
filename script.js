@@ -1,3 +1,9 @@
+setTimeout(() => {
+  alert(
+    "PLEASE ENSURE THE SERVER IS ACTIVE TO ACCESS ALL SITE FEATURES. IF IT IS NOT RUNNING, KINDLY START THE SERVER."
+  );
+}, 3000);
+
 document.addEventListener("DOMContentLoaded", () => {
   // Check screen width on window resize
   window.onresize = function (event) {
