@@ -249,7 +249,7 @@
           localStorage.setItem("title", title); // Save title in local storage
           document.getElementById(
             "titleDisplay"
-          ).textContent = `Title: ${title}`;
+          ).textContent = title;
           document.getElementById("titleInput").value = title; // Set hidden field
           document.getElementById("titleSetup").style.display = "none"; // Hide title setup
           document.getElementById("uploadForm").style.display = "flex"; // Show form
@@ -258,14 +258,10 @@
 
       // Load title from storage if available
       window.onload = () => {
+        document.getElementById("titleSetup").style.display = "none"; // Hide title setup
         const storedTitle = localStorage.getItem("title");
         if (storedTitle) {
           document.getElementById("titleDisplay").textContent = storedTitle;
-          document.getElementById("titleInput").value = storedTitle;
-          document.getElementById("titleSetup").style.display = "none";
-          document.getElementById("uploadForm").style.display = "flex";
-        }
-        if (document.getElementById("titleDisplay").textContent) {
           document.getElementById("titleInput").value = storedTitle;
           document.getElementById("titleSetup").style.display = "none";
           document.getElementById("uploadForm").style.display = "flex";
@@ -304,6 +300,5 @@
         document.getElementById("uploadForm").style.display = "none";
         document.getElementById("imagesContainer").innerHTML = ""; // Clear images display
       }
-    </script>
   </body>
 </html>
