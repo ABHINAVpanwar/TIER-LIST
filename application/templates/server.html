@@ -242,56 +242,53 @@
       <button onclick="deleteAllImages()" id="Reset">RESET</button>
     </div>
     <script>
-      // On page load, fetch the title from the server and update the page
-      window.onload = async () => {
-        const response = await fetch("/get_title");
-        const data = await response.json();
-        if (data.title) {
-          // If title exists, update the UI without showing title setup
-          document.getElementById("titleDisplay").textContent = data.title;
-          document.getElementById("titleInput").value = data.title;
-          document.getElementById("titleSetup").style.display = "none"; // Hide title setup
-          document.getElementById("uploadForm").style.display = "block"; // Show upload form
-        } else {
-          // If no title exists, show title setup
-          document.getElementById("titleSetup").style.display = "block"; // Show title setup
-          document.getElementById("uploadForm").style.display = "none"; // Hide upload form
-        }
-        fetchImages(); // Fetch images after title is set
-      };
-
-      // Set title and send it to the server
-      async function setTitle() {
+      // Set title and update form display
+      function setTitle() {
         const title = document.getElementById("title").value;
         if (title) {
-          // Send title to the server to save it
-          await fetch("/set_title", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title }),
-          });
-          document.getElementById("titleDisplay").textContent = title;
+          localStorage.setItem("title", title); // Save title in local storage
+          document.getElementById(
+            "titleDisplay"
+          ).textContent = `Title: ${title}`;
           document.getElementById("titleInput").value = title; // Set hidden field
           document.getElementById("titleSetup").style.display = "none"; // Hide title setup
-          document.getElementById("uploadForm").style.display = "block"; // Show upload form
+          document.getElementById("uploadForm").style.display = "flex"; // Show form
         }
       }
+
+      // Load title from storage if available
+      window.onload = () => {
+        const storedTitle = localStorage.getItem("title");
+        if (storedTitle) {
+          document.getElementById("titleDisplay").textContent = storedTitle;
+          document.getElementById("titleInput").value = storedTitle;
+          document.getElementById("titleSetup").style.display = "none";
+          document.getElementById("uploadForm").style.display = "flex";
+        }
+        if (document.getElementById("titleDisplay").textContent) {
+          document.getElementById("titleInput").value = storedTitle;
+          document.getElementById("titleSetup").style.display = "none";
+          document.getElementById("uploadForm").style.display = "flex";
+        }
+        fetchImages();
+      };
 
       // Fetch and display images
       async function fetchImages() {
         const response = await fetch("/data");
         const data = await response.json();
 
+        // Display title from server data
         if (data.title) {
           document.getElementById("titleDisplay").textContent = data.title;
         }
 
+        // Populate images
         const imagesContainer = document.getElementById("imagesContainer");
         imagesContainer.innerHTML = "";
         data.images.forEach((image) => {
           const img = document.createElement("img");
-          img.src = `/images/${encodeURIComponent(image)}`;
-          img.style.margin = "10px";
+          img.src = `/images/${image}`;
           imagesContainer.appendChild(img);
         });
       }
@@ -300,16 +297,11 @@
       async function deleteAllImages() {
         await fetch("/delete_all", { method: "POST" });
 
-        // Reset title and hide upload form
-        await fetch("/set_title", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ title: "" }),
-        });
-
+        // Clear title from local storage and reset UI
+        localStorage.removeItem("title");
         document.getElementById("titleDisplay").textContent = "";
-        document.getElementById("titleSetup").style.display = "block"; // Show title setup
-        document.getElementById("uploadForm").style.display = "none"; // Hide upload form
+        document.getElementById("titleSetup").style.display = "block";
+        document.getElementById("uploadForm").style.display = "none";
         document.getElementById("imagesContainer").innerHTML = ""; // Clear images display
       }
     </script>
