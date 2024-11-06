@@ -247,10 +247,15 @@
         const response = await fetch("/get_title");
         const data = await response.json();
         if (data.title) {
+          // If title exists, update the UI without showing title setup
           document.getElementById("titleDisplay").textContent = data.title;
           document.getElementById("titleInput").value = data.title;
           document.getElementById("titleSetup").style.display = "none"; // Hide title setup
           document.getElementById("uploadForm").style.display = "block"; // Show upload form
+        } else {
+          // If no title exists, show title setup
+          document.getElementById("titleSetup").style.display = "block"; // Show title setup
+          document.getElementById("uploadForm").style.display = "none"; // Hide upload form
         }
         fetchImages(); // Fetch images after title is set
       };
