@@ -258,7 +258,8 @@
 
       // Load title from storage if available
       window.onload = () => {
-        document.getElementById("titleSetup").style.display = "none"; // Hide title setup
+        document.getElementById("titleSetup").style.display = "none";
+        document.getElementById("uploadForm").style.display = "flex";
         const storedTitle = localStorage.getItem("title");
         if (storedTitle) {
           document.getElementById("titleDisplay").textContent = storedTitle;
