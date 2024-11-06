@@ -3,13 +3,13 @@ const Tiers = document.querySelectorAll(".Tier");
 const Heading = document.getElementById("Title");
 let previousTier = null;
 
-fetch("/data")
+fetch("https://tier-list-ta1i.onrender.com//data")
   .then((response) => response.json())
   .then((data) => {
     const { images, title } = data;
     images.forEach((src) => {
       const img = document.createElement("img");
-      img.src = `/images/${src}`;
+      img.src = `https://tier-list-ta1i.onrender.com//images/${src}`;
       img.draggable = true;
       img.addEventListener("dragstart", dragStart);
       ImageContainer.appendChild(img);
