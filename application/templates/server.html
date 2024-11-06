@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TIER LIST</title>
+    <link rel="icon" type="image/x-icon" href="../../Icon.png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+      * {
+        padding: 0px;
+        margin: 0px;
+        box-sizing: border-box;
+      }
+
+      body {
+        cursor: default;
+        font-family: "Mulish", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        height: 100vh;
+        width: 100vw;
+        background-color: #333333;
+        color: white;
+      }
+
+      #Container {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      h1 {
+        position: absolute;
+        top: 5vh;
+        font-size: 5vh;
+      }
+
+      #titleSetup {
+        position: absolute;
+        top: 15vh;
+        width: 100%; /* Make sure the container spans the full width */
+        text-align: center; /* Center the content horizontally */
+      }
+
+      #titleSetup input[type="text"] {
+        background-color: #222222; /* Dark background for input */
+        color: white; /* White text for contrast */
+        border: 2px solid #ff4d4d; /* Red border to match the theme */
+        padding: 12px 20px; /* Add padding for better spacing */
+        border-radius: 5px; /* Rounded corners for input */
+        font-size: 2.7vh; /* Adjusted font size for better readability */
+        width: 50%; /* Limit the width of the input */
+        margin-bottom: 15px; /* Space between input and button */
+      }
+
+      #titleSetup button {
+        background-color: #ff4d4d; /* Red background for the button */
+        color: white; /* White text for contrast */
+        padding: 12px 30px; /* Add padding for a larger button */
+        border: none; /* Remove border */
+        border-radius: 5px; /* Rounded corners for button */
+        font-size: 2.7vh; /* Larger text size */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
+      }
+
+      #titleSetup button:hover {
+        background-color: #ff1a1a; /* Darker red when hovered */
+        transform: scale(1.05); /* Slightly enlarge the button on hover */
+      }
+
+      #titleSetup button:active {
+        background-color: #e60000; /* Even darker red when clicked */
+        transform: scale(0.98); /* Slight shrink effect on click */
+      }
+
+      #titleDisplay {
+        font-size: 4.5vh;
+        position: absolute;
+        top: 15vh;
+      }
+
+      #uploadForm {
+        position: absolute;
+        top: 25vh;
+        background-color: #333;
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 60%;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      #titleInput {
+        display: none; /* Hidden title input if it's not meant to be user-visible */
+      }
+
+      input[type="file"] {
+        font-size: 2vh;
+        color: #ddd;
+        background-color: #444;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 10px;
+        width: 100%;
+        cursor: pointer;
+      }
+
+      input[type="file"]::file-selector-button {
+        padding: 8px 12px;
+        color: white;
+        background-color: #555;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button#upload {
+        font-size: 2vh;
+        font-weight: bold;
+        color: white;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        margin-top: 15px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button#upload:hover {
+        background-color: #0056b3;
+      }
+
+      button#upload:active {
+        background-color: #004080;
+      }
+
+      #imagesContainer {
+        position: absolute;
+        top: 50vh;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 10px;
+        margin: 20px auto;
+        width: 90vw;
+        max-height: 30vh;
+        border: 2px solid #ffffff;
+        background-color: #222;
+        overflow-x: auto;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        scrollbar-width: thin;
+        scrollbar-color: #444 #222;
+      }
+
+      #imagesContainer img {
+        width: 20vh;
+        height: 20vh;
+        margin: 0 10px;
+        border-radius: 8px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      #imagesContainer img:hover {
+        transform: scale(1.1);
+        box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.3);
+      }
+
+      /* Custom scrollbar styling */
+      #imagesContainer::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      #imagesContainer::-webkit-scrollbar-track {
+        background: #222;
+        border-radius: 10px;
+      }
+
+      #imagesContainer::-webkit-scrollbar-thumb {
+        background-color: #444;
+        border-radius: 10px;
+      }
+
+      #Reset {
+        position: absolute;
+        bottom: 5vh;
+        background-color: #ff4d4d; /* Red background for the reset button */
+        color: white; /* White text for contrast */
+        padding: 12px 30px; /* Padding to make the button bigger */
+        border: none; /* Remove the default border */
+        border-radius: 5px; /* Rounded corners */
+        font-size: 3vh; /* Larger text for better readability */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+      }
+
+      #Reset:hover {
+        background-color: #ff1a1a; /* Darker red when hovered */
+        transform: scale(1.05); /* Slightly enlarge the button on hover */
+      }
+
+      #Reset:active {
+        background-color: #e60000; /* Dark red when clicked */
+        transform: scale(0.98); /* Slight shrink effect on click */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="Container">
+      <h1>UPLOAD IMAGES</h1>
+
+      <!-- Title Setup (displayed only if title is not set) -->
+      <div id="titleSetup" style="display: block">
+        <input type="text" id="title" placeholder="ENTER A TITLE" required />
+        <button onclick="setTitle()">SET</button>
+      </div>
+
+      <!-- Upload Form -->
+      <form
+        id="uploadForm"
+        action="/upload"
+        method="POST"
+        enctype="multipart/form-data"
+        style="display: none"
+      >
+        <input type="hidden" id="titleInput" name="title" />
+        <input type="file" name="image" accept="image/*" required />
+        <button type="submit" id="upload">UPLOAD</button>
+      </form>
+
+      <h3 id="titleDisplay"></h3>
+      <div id="imagesContainer"></div>
+      <button onclick="deleteAllImages()" id="Reset">RESET</button>
+    </div>
+    <script>
+      // Set title and update form display
+      function setTitle() {
+        const title = document.getElementById("title").value;
+        if (title) {
+          localStorage.setItem("title", title); // Save title in local storage
+          document.getElementById(
+            "titleDisplay"
+          ).textContent = `${title}`;
+          document.getElementById("titleInput").value = title; // Set hidden field
+          document.getElementById("titleSetup").style.display = "none"; // Hide title setup
+          document.getElementById("uploadForm").style.display = "block"; // Show form
+        }
+      }
+
+      // Load title from storage if available
+      window.onload = () => {
+        const storedTitle = localStorage.getItem("title");
+        if (storedTitle) {
+          document.getElementById(
+            "titleDisplay"
+          ).textContent = `${storedTitle}`;
+          document.getElementById("titleInput").value = storedTitle;
+          document.getElementById("titleSetup").style.display = "none";
+          document.getElementById("uploadForm").style.display = "block";
+        }
+        fetchImages();
+      };
+
+      // Fetch and display images
+      async function fetchImages() {
+        const response = await fetch("/data");
+        const data = await response.json();
+
+        // Display title from server data
+        if (data.title) {
+          document.getElementById("titleDisplay").textContent = `${data.title}`;
+        }
+
+        // Populate images
+        const imagesContainer = document.getElementById("imagesContainer");
+        imagesContainer.innerHTML = "";
+        data.images.forEach((image) => {
+          const img = document.createElement("img");
+          img.src = `/images/${encodeURIComponent(image)}`;
+          img.style.margin = "10px";
+          imagesContainer.appendChild(img);
+        });
+      }
+
+      // Delete all images and reset title
+      async function deleteAllImages() {
+        await fetch("/delete_all", { method: "POST" });
+
+        // Clear title from local storage and reset UI
+        localStorage.removeItem("title");
+        document.getElementById("titleDisplay").textContent = "";
+        document.getElementById("titleSetup").style.display = "block";
+        document.getElementById("uploadForm").style.display = "none";
+        document.getElementById("imagesContainer").innerHTML = ""; // Clear images display
+      }
+    </script>
+  </body>
+</html>
