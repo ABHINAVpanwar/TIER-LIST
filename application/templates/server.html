@@ -247,9 +247,7 @@
         const title = document.getElementById("title").value;
         if (title) {
           localStorage.setItem("title", title); // Save title in local storage
-          document.getElementById(
-            "titleDisplay"
-          ).textContent = title;
+          document.getElementById("titleDisplay").textContent = title;
           document.getElementById("titleInput").value = title; // Set hidden field
           document.getElementById("titleSetup").style.display = "none"; // Hide title setup
           document.getElementById("uploadForm").style.display = "flex"; // Show form
@@ -302,6 +300,5 @@
         document.getElementById("imagesContainer").innerHTML = ""; // Clear images display
       }
     </script>
-
   </body>
 </html>

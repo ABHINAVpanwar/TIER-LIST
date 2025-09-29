@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TIER LIST</title>
-    <link rel="icon" type="image/x-icon" href="/application/static/Icon.png">
+    <link rel="icon" type="image/x-icon" href="/application/static/Icon.png" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -21,6 +21,287 @@
         <div class="Tier" id="TierD"><h2 id="Rating5">D</h2></div>
       </div>
     </div>
+    <section>
+      <!-- Info Toggle Button -->
+      <div class="info-toggle-container">
+        <button class="info-toggle-btn" id="infoToggle">
+          <span class="info-text">?</span>
+        </button>
+      </div>
+
+      <!-- Overlay Section -->
+      <section class="overlay" id="infoOverlay">
+        <div class="overlay-content">
+          <button class="close-btn" id="closeOverlay">&times;</button>
+          <h2>My Tier List</h2>
+          <p>Follow these steps:</p>
+
+          <div class="instruction-step">
+            <div class="step-number">1</div>
+            <a href="https://tier-list-maker.onrender.com/" target="_blank"
+              >Click here to set a title and upload images</a
+            >
+          </div>
+
+          <div class="instruction-step">
+            <div class="step-number">2</div>
+            <div>Refresh this page after uploading</div>
+          </div>
+
+          <div class="instruction-step">
+            <div class="step-number">3</div>
+            <div>Drag and drop images into tier categories</div>
+          </div>
+
+          <p style="margin-top: 20px; font-style: italic">
+            Uploaded images will appear on the left after refresh.
+          </p>
+        </div>
+      </section>
+
+      <style>
+        /* Info Toggle Button Styles */
+        .info-toggle-container {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          z-index: 999;
+        }
+
+        .info-toggle-btn {
+          background: linear-gradient(135deg, #ff3860, #e94560);
+          color: white;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 25px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-family: "Mulish", sans-serif;
+          font-weight: 600;
+          font-size: 1rem;
+          box-shadow: 0 4px 15px rgba(255, 56, 96, 0.4);
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+          border: 2px solid #000;
+        }
+
+        .info-toggle-btn::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent
+          );
+          transition: left 0.5s ease;
+        }
+
+        .info-toggle-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(255, 56, 96, 0.6);
+        }
+
+        .info-toggle-btn:hover::before {
+          left: 100%;
+        }
+
+        .info-toggle-btn:active {
+          transform: translateY(0);
+        }
+
+        .info-icon {
+          font-size: 1.2rem;
+          filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+        }
+
+        .info-text {
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Lash Animation */
+        @keyframes lash {
+          0%,
+          100% {
+            transform: scale(1);
+            box-shadow: 0 4px 15px rgba(255, 56, 96, 0.4);
+          }
+          25% {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(255, 56, 96, 0.8);
+          }
+          50% {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 56, 96, 0.6);
+          }
+          75% {
+            transform: scale(1.08);
+            box-shadow: 0 6px 22px rgba(255, 56, 96, 0.7);
+          }
+        }
+
+        .lash-animation {
+          animation: lash 2s ease-in-out 3;
+        }
+
+        /* Overlay Styles */
+        .overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(51, 51, 51, 0.95);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .overlay.active {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .overlay-content {
+          background: white;
+          padding: 30px;
+          border-radius: 12px;
+          max-width: 500px;
+          width: 90%;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+          position: relative;
+          border: 3px solid #000;
+          text-align: center;
+          font-family: "Mulish", sans-serif;
+        }
+
+        .close-btn {
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          background: #ff3860;
+          color: white;
+          border: none;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          cursor: pointer;
+          font-size: 18px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: background 0.3s, transform 0.2s;
+          border: 2px solid #000;
+          font-weight: bold;
+        }
+
+        .close-btn:hover {
+          background: #e94560;
+          transform: scale(1.1);
+        }
+
+        .overlay-content h2 {
+          color: #ff3860;
+          margin-bottom: 20px;
+          font-size: 1.8rem;
+          font-family: "Mulish", sans-serif;
+          font-optical-sizing: auto;
+          font-style: normal;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .overlay-content p {
+          color: #333;
+          line-height: 1.6;
+          margin-bottom: 15px;
+          font-size: 1.1rem;
+          font-family: "Mulish", sans-serif;
+        }
+
+        .instruction-step {
+          display: flex;
+          align-items: center;
+          margin-bottom: 15px;
+          text-align: left;
+          background: rgba(51, 51, 51, 0.1);
+          padding: 12px;
+          border-radius: 8px;
+          border: 2px solid #000;
+        }
+
+        .step-number {
+          background: #ff3860;
+          color: white;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 15px;
+          flex-shrink: 0;
+          border: 2px solid #000;
+          font-weight: bold;
+          font-family: "Mulish", sans-serif;
+        }
+      </style>
+
+      <script>
+        // Show lash animation on page load
+        document.addEventListener("DOMContentLoaded", function () {
+          const toggleBtn = document.getElementById("infoToggle");
+
+          // Add lash animation
+          toggleBtn.classList.add("lash-animation");
+
+          // Remove animation after it completes
+          setTimeout(() => {
+            toggleBtn.classList.remove("lash-animation");
+          }, 6000); // 3 cycles of 2 seconds each
+        });
+
+        // Toggle overlay functionality
+        document
+          .getElementById("infoToggle")
+          .addEventListener("click", function () {
+            document.getElementById("infoOverlay").classList.add("active");
+          });
+
+        // Close overlay functionality
+        document
+          .getElementById("closeOverlay")
+          .addEventListener("click", function () {
+            document.getElementById("infoOverlay").classList.remove("active");
+          });
+
+        // Close overlay when clicking outside the content
+        document
+          .getElementById("infoOverlay")
+          .addEventListener("click", function (e) {
+            if (e.target === this) {
+              this.classList.remove("active");
+            }
+          });
+
+        // Close overlay with Escape key
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") {
+            document.getElementById("infoOverlay").classList.remove("active");
+          }
+        });
+      </script>
+    </section>
     <script src="script.js"></script>
   </body>
 </html>

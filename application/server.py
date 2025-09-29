@@ -3,8 +3,7 @@ from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/data": {"origins": "https://mytierlist.netlify.app"},
-                     r"/images/*": {"origins": "https://mytierlist.netlify.app"}})  # Allow CORS for image requests
+CORS(app)
 
 # Path to the images directory
 IMAGES_DIR = os.path.join(app.root_path, 'images')
